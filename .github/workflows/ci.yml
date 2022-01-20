@@ -1,0 +1,46 @@
+name: Apparmor CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  run_apparmor:
+    name: AppArmor CI
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04 ]
+        python-version: [ 3.8 ]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Check Docker Version
+      run: |
+        docker info | grep apparmor
+
+    - name: Check docker profile
+      run: |
+        sudo aa-status
+
+    - name: Load nginx custom profile
+      run: |
+        sudo apparmor_parser -r -W ./.github/docker-nginx-profile
+
+    - name: Run ngnix container with custom profile
+      run: |
+        docker run --security-opt "apparmor=docker-nginx" -p 80:80 -d --name apparmor-nginx nginx
+
+    - name: Run command inside container
+      run: |
+        docker exec -t apparmor-nginx bash -c "apt-get update && apt-get install -y iputils-ping && ping 8.8.8.0 && touch ~/thing && dash"
