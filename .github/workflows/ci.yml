@@ -39,7 +39,7 @@ jobs:
 
     - name: Run ngnix container with custom profile
       run: |
-        docker run --security-opt "apparmor=docker-nginx" -p 80:80 -d --name apparmor-nginx nginx
+        docker run -p 80:80 -d --name apparmor-nginx nginx
 
     - name: Run command inside container
       run: |
