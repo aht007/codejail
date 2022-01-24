@@ -35,12 +35,12 @@ jobs:
 
     - name: Load nginx custom profile
       run: |
-        sudo apparmor_parser -r -W ./.github/docker-nginx-profile
+        sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
 
     - name: Run ngnix container with custom profile
       run: |
-        docker run -p 80:80 -d --name apparmor-nginx nginx
+        docker-compose up --security-opt "apparmor=custom-apparmor" -d --name apparmor-dev
 
-    - name: Run command inside container
-      run: |
-        docker exec -t apparmor-nginx bash -c "touch ~/thing"
+#    - name: Run command inside container
+#      run: |
+#        docker exec -t apparmor-nginx bash -c "touch ~/thing"
