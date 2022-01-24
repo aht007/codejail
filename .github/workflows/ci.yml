@@ -39,8 +39,8 @@ jobs:
 
     - name: Run ngnix container with custom profile
       run: |
-        docker-compose up --security-opt "apparmor=custom-apparmor" --name apparmor-dev
+        docker-compose up -d --security-opt "apparmor=custom-apparmor" --name apparmor-dev
 
-#    - name: Run command inside container
-#      run: |
-#        docker exec -t apparmor-nginx bash -c "touch ~/thing"
+    - name: Run command inside container
+      run: |
+        docker exec -t apparmor-nginx bash -c "tox -e quality"

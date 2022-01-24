@@ -10,5 +10,3 @@ RUN pip install -r requirements/tox.txt
 
 ENV CODEJAIL_TEST_USER = 'sandbox'
 ENV CODEJAIL_TEST_VENV = "/home/sandbox/codejail_sandbox-python${PYTHON_VERSION}"
-
-CMD ["tox", "-e", "py38"]
