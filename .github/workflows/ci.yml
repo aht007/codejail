@@ -43,4 +43,4 @@ jobs:
 
     - name: Run command inside container
       run: |
-        docker exec -t apparmor-nginx bash -c "apt-get update && apt-get install -y iputils-ping && ping 8.8.8.0 && touch ~/thing && dash"
+        docker exec -t apparmor-nginx bash -c "touch ~/thing"
