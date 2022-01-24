@@ -43,4 +43,4 @@ jobs:
 
     - name: Run command inside container
       run: |
-        docker exec -t apparmor-nginx bash -c "tox -e quality"
+        docker exec -t apparmor-dev bash -c "tox -e quality"
