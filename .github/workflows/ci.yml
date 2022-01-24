@@ -39,7 +39,7 @@ jobs:
 
     - name: Run ngnix container with custom profile
       run: |
-        docker-compose up --security-opt "apparmor=custom-apparmor" -d --name apparmor-dev
+        docker-compose up --security-opt "apparmor=custom-apparmor" --name apparmor-dev
 
 #    - name: Run command inside container
 #      run: |
