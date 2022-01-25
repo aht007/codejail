@@ -41,4 +41,4 @@ jobs:
       run: docker-compose ps
 
     - name: Run command inside container
-      run: docker exec -t apparmor_codejail bash -c "tox -e quality"
+      run: docker exec -t apparmor_codejail bash -c "touch /test.txt"
