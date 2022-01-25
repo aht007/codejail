@@ -28,11 +28,11 @@ jobs:
     - name: Check Docker Version
       run: docker info | grep apparmor
 
-    - name: Check docker profile
-      run: sudo aa-status
-
     - name: Load codejail apparmor profile
       run: sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
+
+    - name: Verify apparmor profile loading
+      run: sudo aa-status
 
     - name: Start container with custom apparmor profile
       run: docker-compose up -d
