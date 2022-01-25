@@ -6,3 +6,4 @@ services:
     build:
       context: .
     container_name: apparmor_codejail
+    command: tail -f /dev/null

@@ -35,7 +35,7 @@ jobs:
       run: sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
 
     - name: Start container with custom apparmor profile
-      run: docker-compose up --build -d
+      run: docker-compose up -d
 
     - name: Check running containers
       run: docker-compose ps

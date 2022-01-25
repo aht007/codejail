@@ -1,4 +1,10 @@
-FROM python:3.8-alpine
+FROM ubuntu:xenial
+
+RUN apt update && \
+  apt-get install -y software-properties-common && \
+  apt-add-repository -y ppa:deadsnakes/ppa && apt-get update && \
+  apt install -y git-core language-pack-en python3.8-dev python3.8-venv libmysqlclient-dev libffi-dev libssl-dev build-essential gettext openjdk-8-jdk && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
