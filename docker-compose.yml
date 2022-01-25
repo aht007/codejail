@@ -1,9 +1,10 @@
-version: "2"
+version: "2.3"
 
 services:
 
   codejail:
-    build:
-      context: .
+    build: .
     container_name: apparmor_codejail
     command: tail -f /dev/null
+    security_opt:
+      - apparmor=custom-apparmor
