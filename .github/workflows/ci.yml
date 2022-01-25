@@ -34,8 +34,11 @@ jobs:
     - name: Load codejail apparmor profile
       run: sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
 
-    - name: Run ngnix container with custom profile
-      run: docker-compose -f docker-compose.yml up -d
+    - name: Start container with custom apparmor profile
+      run: docker-compose -f docker-compose.yml up --build -d --security-opt "apparmor=custom-apparmor"
+
+    - name: Check running containers
+      run: docker-compose ps
 
     - name: Run command inside container
       run: docker exec -t apparmor_codejail bash -c "tox -e quality"
