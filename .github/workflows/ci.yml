@@ -26,21 +26,16 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Check Docker Version
-      run: |
-        docker info | grep apparmor
+      run: docker info | grep apparmor
 
     - name: Check docker profile
-      run: |
-        sudo aa-status
+      run: sudo aa-status
 
-    - name: Load nginx custom profile
-      run: |
-        sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
+    - name: Load codejail apparmor profile
+      run: sudo apparmor_parser -r -W ./.github/custom-apparmor-profile
 
     - name: Run ngnix container with custom profile
-      run: |
-        docker-compose up --build -d --name apparmor-dev
+      run: docker-compose -f docker-compose.yml up -d
 
     - name: Run command inside container
-      run: |
-        docker exec -t apparmor-dev bash -c "tox -e quality"
+      run: docker exec -t apparmor_codejail bash -c "tox -e quality"

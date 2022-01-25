@@ -1,6 +1,9 @@
-version: "3.9"
+version: "2"
+
 services:
+
   codejail:
     build:
       context: .
       dockerfile: DockerFile
+    container_name: apparmor_codejail
