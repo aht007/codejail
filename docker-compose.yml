@@ -5,5 +5,4 @@ services:
   codejail:
     build:
       context: .
-      dockerfile: DockerFile
     container_name: apparmor_codejail
