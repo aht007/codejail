@@ -7,4 +7,4 @@ services:
     container_name: apparmor_codejail
     command: tail -f /dev/null
     security_opt:
-      - apparmor=custom-apparmor
+      - apparmor:custom-apparmor
