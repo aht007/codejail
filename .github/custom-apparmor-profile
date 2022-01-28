@@ -1,23 +1,26 @@
 #include <tunables/global>
 
-profile custom-apparmor {
-#include <abstractions/base>
-#include <abstractions/python>
+/home/sandbox/codejail_sandbox-python3.8/bin/python {
+    #include <abstractions/base>
+    #include <abstractions/python>
 
-# Whitelist particular shared objects from the system
-# python installation
-#
-/usr/lib/python/lib-dynload/_json.so mr,
-/usr/lib/python/lib-dynload/_ctypes.so mr,
-/usr/lib/python/lib-dynload/_heapq.so mr,
-/usr/lib/python/lib-dynload/_io.so mr,
-/usr/lib/python/lib-dynload/_csv.so mr,
-/usr/lib/python/lib-dynload/datetime.so mr,
-/usr/lib/python/lib-dynload/_elementtree.so mr,
-/usr/lib/python/lib-dynload/pyexpat.so mr,
-/usr/lib/python/lib-dynload/future_builtins.so mr,
-#
-# Allow access to selections from /proc
-#
-/proc/*/mounts r,
+    /home/sandbox/codejail_sandbox-python3.8/** mr,
+    /tmp/codejail-*/ rix,
+    /tmp/codejail-*/** wrix,
+
+    # Whitelist particular shared objects from the system python installation
+    #
+    /usr/lib/python3.8/lib-dynload/_json.so mr,
+    /usr/lib/python3.8/lib-dynload/_ctypes.so mr,
+    /usr/lib/python3.8/lib-dynload/_heapq.so mr,
+    /usr/lib/python3.8/lib-dynload/_io.so mr,
+    /usr/lib/python3.8/lib-dynload/_csv.so mr,
+    /usr/lib/python3.8/lib-dynload/datetime.so mr,
+    /usr/lib/python3.8/lib-dynload/_elementtree.so mr,
+    /usr/lib/python3.8/lib-dynload/pyexpat.so mr,
+    /usr/lib/python3.8/lib-dynload/future_builtins.so mr,
+    #
+    # Allow access to selections from /proc
+    #
+    /proc/*/mounts r,
 }
