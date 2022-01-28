@@ -1,7 +1,7 @@
 FROM ubuntu:focal
 
-RUN apt update && apt-get install -y software-properties-common && \
-  apt install -y apt-transport-https ca-certificates pkg-config libffi-dev libsqlite3-dev libfreetype6-dev libpq-dev
+RUN apt update && apt install -y software-properties-common apt-transport-https ca-certificates \
+    pkg-config libffi-dev libsqlite3-dev libfreetype6-dev libpq-dev python-virtualenv
 
 COPY . .
 
