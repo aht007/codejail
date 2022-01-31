@@ -20,15 +20,21 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Create Sandbox Group
+      run: groupadd sandbox
+
+    - name: Create Sandbox User
+      run: useradd -gsandbox sandbox
+
     - name: Install system dependencies
       run: |
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
     - name: Create Virtualenv
-      run: python3 -m venv codejail-venv
+      run: virtualenv -p python3.8 --always-copy /home/sandbox/codejail_sandbox-python3.8
 
     - name: Activate Virtualenv
-      run: source codejail-venv/bin/activate
+      run: source /home/sandbox/codejail_sandbox-python3.8/bin/activate
 
     - name: Install Python dependencies
       run: |
@@ -36,10 +42,10 @@ jobs:
         pip install -r requirements/sandbox.txt
 
     - name: Load apparmor profile
-      run: sudo mv apparmor-profiles/codejail-venv.bin.python /etc/apparmor.d/
+      run: sudo mv apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
-      run: sudo aa-enforce /etc/apparmor.d/codejail-venv.bin.python
+      run: sudo aa-enforce /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
 
     - name: Check apparmor profiles status
       run: sudo aa-status
@@ -48,5 +54,5 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
         CODEJAIL_TEST_USER: 'sandbox'
-        CODEJAIL_TEST_VENV: 'codejail-venv'
+        CODEJAIL_TEST_VENV: 'home/sandbox/codejail_sandbox-python3.8'
       run: tox

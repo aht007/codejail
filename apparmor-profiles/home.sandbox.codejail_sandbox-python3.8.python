@@ -1,10 +1,10 @@
 #include <tunables/global>
 
-/codejail-venv/bin/python {
+home.sandbox.codejail_sandbox-python3.8/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
-    /venvs/codejail-venv/** mr,
+    home.sandbox.codejail_sandbox-python3.8/** mr,
     /codejail-*/ rix,
     /codejail-*/** wrix,
 
