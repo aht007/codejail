@@ -9,3 +9,4 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN virtualenv -p python3.8 --always-copy "$VIRTUAL_ENV"
 
 RUN pip install -r requirements/sandbox.txt
+Run pip install -r requirements/tox.txt
