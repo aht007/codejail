@@ -22,5 +22,5 @@ profile custom_codejail /usr/bin/python {
     #
     # Allow access to selections from /proc
     #
-    /proc/*/mount
+    /proc/*/mounts r,
 }
