@@ -33,10 +33,10 @@ jobs:
       run: sudo mv apparmor-profiles/codejail.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
-      run: aa-enforce /etc/apparmor.d/codejail.bin.python
+      run: sudo aa-enforce /etc/apparmor.d/codejail.bin.python
 
     - name: Check apparmor profiles status
-      run: aa-status
+      run: sudo aa-status
 
     - name: Run Tests
       env:
