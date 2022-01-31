@@ -21,10 +21,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Create Sandbox Group
-      run: groupadd sandbox
+      run: sudo groupadd sandbox
 
     - name: Create Sandbox User
-      run: useradd -gsandbox sandbox
+      run: sudo useradd -gsandbox sandbox
 
     - name: Install system dependencies
       run: |
