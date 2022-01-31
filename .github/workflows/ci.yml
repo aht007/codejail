@@ -22,7 +22,13 @@ jobs:
 
     - name: Install system dependencies
       run: |
-        sudo apt-get update && sudo apt-get install -y apparmor-utils
+        sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
+
+    - name: Create Virtualenv
+      run: python3 -m venv codejail-venv
+
+    - name: Activate Virtualenv
+      run: source codejail-venv/bin/activate
 
     - name: Install Python dependencies
       run: |
@@ -30,10 +36,10 @@ jobs:
         pip install -r requirements/sandbox.txt
 
     - name: Load apparmor profile
-      run: sudo mv apparmor-profiles/codejail.bin.python /etc/apparmor.d/
+      run: sudo mv apparmor-profiles/codejail-venv.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
-      run: sudo aa-enforce /etc/apparmor.d/codejail.bin.python
+      run: sudo aa-enforce /etc/apparmor.d/codejail-venv.bin.python
 
     - name: Check apparmor profiles status
       run: sudo aa-status

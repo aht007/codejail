@@ -1,12 +1,12 @@
 #include <tunables/global>
 
-profile custom_codejail /usr/bin/python {
+profile custom_codejail /codejail-venv/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
-    /usr/** mr,
-    /codejail/ rix,
-    /codejail/** wrix,
+    /venvs/codejail-venv/** mr,
+    /codejail-*/ rix,
+    /codejail-*/** wrix,
 
     # Whitelist particular shared objects from the system python installation
     #
