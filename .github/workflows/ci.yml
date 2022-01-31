@@ -11,6 +11,7 @@ jobs:
       matrix:
         os: [ ubuntu-20.04 ]
         python-version: [ 3.8 ]
+        toxenv: [py38, quality]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,6 +29,7 @@ jobs:
         pip install -r requirements/tox.txt
         pip install -r requirements/sandbox.txt
 
-    - name: Run quality tests
-      run: |
-        tox -e quality
+    - name: Run Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      run: tox
