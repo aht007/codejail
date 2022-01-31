@@ -21,7 +21,7 @@ jobs:
 
     - name: Install system dependencies
       run: |
-        apt-get update && apt-get install -y pkg-config libffi-dev libsqlite-dev apparmor-utils
+        apt-get update && apt-get install -y apparmor-utils
 
     - name: Install Python dependencies
       run: |
