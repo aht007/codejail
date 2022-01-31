@@ -29,6 +29,15 @@ jobs:
         pip install -r requirements/tox.txt
         pip install -r requirements/sandbox.txt
 
+    - name: Load apparmor profile
+      run: mv apparmor-profiles/codejail.bin.python /etc/apparmor.d/
+
+    - name: Enforce apparmor profile
+      run: aa-enforce /etc/apparmor.d/codejail.bin.python
+
+    - name: Check apparmor profiles status
+      run: aa-status
+
     - name: Run Tests
       env:
         TOXENV: ${{ matrix.toxenv }}
