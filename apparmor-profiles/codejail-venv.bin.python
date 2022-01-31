@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile custom_codejail /codejail-venv/bin/python {
+/codejail-venv/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
