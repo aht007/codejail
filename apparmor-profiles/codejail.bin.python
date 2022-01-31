@@ -5,8 +5,8 @@ profile custom_codejail /usr/bin/python {
     #include <abstractions/python>
 
     /usr/** mr,
-    /tmp/codejail-*/ rix,
-    /tmp/codejail-*/** wrix,
+    /codejail/ rix,
+    /codejail/** wrix,
 
     # Whitelist particular shared objects from the system python installation
     #
