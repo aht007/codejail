@@ -47,4 +47,6 @@ jobs:
     - name: Run Tests
       env:
         TOXENV: ${{ matrix.toxenv }}
+        CODEJAIL_TEST_USER: 'sandbox'
+        CODEJAIL_TEST_VENV: 'codejail-venv'
       run: tox
