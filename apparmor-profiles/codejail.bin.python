@@ -4,7 +4,6 @@ codejail/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
-    /codejail/** mr,
     /codejail-*/ rix,
     /codejail-*/** wrix,
 
