@@ -53,7 +53,9 @@ jobs:
         pip install -r requirements/sandbox.txt
 
     - name: Test Code Jail
-      run: python3 codejail_test.py
+      run: |
+        source codejailvenv/bin/activate
+        python3 codejail_test.py
 
     - name: Run Quality Tests
       run: |
