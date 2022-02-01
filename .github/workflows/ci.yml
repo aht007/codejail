@@ -36,6 +36,9 @@ jobs:
     - name: Activate Virtualenv
       run: source codejail/bin/activate
 
+    - name: Check generated Files
+      run: ls
+
     - name: Install Python dependencies
       run: |
         pip install -r requirements/tox.txt
