@@ -29,11 +29,6 @@ jobs:
     - name: Activate Virtualenv
       run: source codejailvenv/bin/activate
 
-    - name: Install Python dependencies
-      run: |
-        pip install -r requirements/tox.txt
-        pip install -r requirements/sandbox.txt
-
     - name: Add Sandbox User & Group
       run: |
         sudo addgroup sandbox
@@ -55,6 +50,7 @@ jobs:
       run: |
         source codejailvenv/bin/activate
         pip install -r requirements/testing.txt
+        pip install -r requirements/sandbox.txt
         make quality
 
     - name: Run Tests
@@ -64,4 +60,5 @@ jobs:
       run: |
         source codejailvenv/bin/activate
         pip install -r requirements/testing.txt
+        pip install -r requirements/sandbox.txt
         make test
