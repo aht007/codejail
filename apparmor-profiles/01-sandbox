@@ -1,6 +1,6 @@
-{{ codejail_sandbox_caller }} ALL=(sandbox) SETENV:NOPASSWD:codejailvenv/bin/python
-{{ codejail_sandbox_caller }} ALL=(sandbox) SETENV:NOPASSWD:/usr/bin/find
-{{ codejail_sandbox_caller }} ALL=(ALL) NOPASSWD:/usr/bin/pkill
+runner ALL=(sandbox) SETENV:NOPASSWD:codejailvenv/bin/python
+runner ALL=(sandbox) SETENV:NOPASSWD:/usr/bin/find
+runner ALL=(ALL) NOPASSWD:/usr/bin/pkill
 
 Defaults!codejailvenv/bin/python !requiretty
 Defaults!/usr/bin/find !requiretty

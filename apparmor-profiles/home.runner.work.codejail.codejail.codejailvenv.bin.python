@@ -5,8 +5,8 @@
     #include <abstractions/python>
 
     /codejailvenv/** mr,
-    /codejail-*/ rix,
-    /codejail-*/** wrix,
+    /tmp/codejail-*/ rix,
+    /tmp/codejail-*/** wrix,
 
     # Whitelist particular shared objects from the system python installation
     #

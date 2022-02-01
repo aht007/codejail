@@ -24,9 +24,6 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
-    - name: Check current User
-      run: echo $USER
-
     - name: Create Virtualenv
       run: sudo virtualenv codejailvenv
 
@@ -46,8 +43,8 @@ jobs:
         sudo addgroup sandbox
         sudo adduser --disabled-login sandbox --ingroup sandbox
 
-    - name: Load apparmor profile
-      run: sudo mv apparmor-profiles/home.runner.work.codejail.codejail.codejailvenv.bin.python /etc/apparmor.d/
+    - name: Load Sandbox Sudoers Settings
+      run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
 
     - name: Enforce apparmor profile
       run: sudo aa-enforce /etc/apparmor.d/home.runner.work.codejail.codejail.codejailvenv.bin.python
@@ -55,9 +52,11 @@ jobs:
     - name: Check apparmor profiles status
       run: sudo aa-status
 
+    - name: Run Quality Tests
+      run: make quality
+
     - name: Run Tests
       env:
-        TOXENV: ${{ matrix.toxenv }}
         CODEJAIL_TEST_USER: 'sandbox'
         CODEJAIL_TEST_VENV: 'codejailvenv'
-      run: tox
+      run: make test
