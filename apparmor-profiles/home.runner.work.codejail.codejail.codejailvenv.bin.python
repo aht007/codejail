@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-sandbox/bin/python {
+/codejailvenv/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
