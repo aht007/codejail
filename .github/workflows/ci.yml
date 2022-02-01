@@ -31,10 +31,10 @@ jobs:
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
     - name: Create Virtualenv
-      run: virtualenv -p python3.8 "/sandbox/codejail_sandbox-python3.8"
+      run: virtualenv -p python3.8 codejail_sandbox
 
     - name: Activate Virtualenv
-      run: source /sandbox/codejail_sandbox-python3.8/bin/activate
+      run: source codejail_sandbox/bin/activate
 
     - name: Install Python dependencies
       run: |
@@ -42,10 +42,10 @@ jobs:
         pip install -r requirements/sandbox.txt
 
     - name: Load apparmor profile
-      run: sudo mv apparmor-profiles/sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
+      run: sudo mv apparmor-profiles/codejail_sandbox.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
-      run: sudo aa-enforce /etc/apparmor.d/sandbox.codejail_sandbox-python3.8.bin.python
+      run: sudo aa-enforce /etc/apparmor.d/codejail_sandbox.bin.python
 
     - name: Check apparmor profiles status
       run: sudo aa-status
@@ -54,5 +54,5 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
         CODEJAIL_TEST_USER: 'sandbox'
-        CODEJAIL_TEST_VENV: 'home/sandbox/codejail_sandbox-python3.8'
+        CODEJAIL_TEST_VENV: 'codejail_sandbox'
       run: tox
