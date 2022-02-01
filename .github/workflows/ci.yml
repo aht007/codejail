@@ -42,10 +42,10 @@ jobs:
         pip install -r requirements/sandbox.txt
 
     - name: Load apparmor profile
-      run: sudo mv apparmor-profiles/codejail.bin.python /etc/apparmor.d/
+      run: sudo mv apparmor-profiles/sandbox.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
-      run: sudo aa-enforce /etc/apparmor.d/codejail.bin.python
+      run: sudo aa-enforce /etc/apparmor.d/sandbox.bin.python
 
     - name: Check apparmor profiles status
       run: sudo aa-status

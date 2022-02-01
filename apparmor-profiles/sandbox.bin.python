@@ -1,9 +1,10 @@
 #include <tunables/global>
 
-codejail/bin/python {
+sandbox/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
+    /codejail/** mr,
     /codejail-*/ rix,
     /codejail-*/** wrix,
 
