@@ -37,7 +37,7 @@ jobs:
       run: source codejailvenv/bin/activate
 
     - name: Check generated Files
-      run: ls
+      run: ls codejailvenv/
 
     - name: Install Python dependencies
       run: |
