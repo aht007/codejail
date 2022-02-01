@@ -46,11 +46,14 @@ jobs:
     - name: Check apparmor profiles status
       run: sudo aa-status
 
-    - name: Run Quality Tests
+    - name: Install Requirements in Virtualenv
       run: |
         source codejailvenv/bin/activate
         pip install -r requirements/testing.txt
         pip install -r requirements/sandbox.txt
+
+    - name: Run Quality Tests
+      run: |
         make quality
 
     - name: Run Tests
@@ -58,7 +61,4 @@ jobs:
         CODEJAIL_TEST_USER: 'sandbox'
         CODEJAIL_TEST_VENV: 'codejailvenv'
       run: |
-        source codejailvenv/bin/activate
-        pip install -r requirements/testing.txt
-        pip install -r requirements/sandbox.txt
         make test
