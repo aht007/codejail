@@ -24,13 +24,10 @@ jobs:
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
     - name: Create Virtualenv
-      run: sudo virtualenv codejailvenv
+      run: virtualenv codejailvenv
 
     - name: Activate Virtualenv
       run: source codejailvenv/bin/activate
-
-    - name: Check generated Files
-      run: ls codejailvenv/
 
     - name: Install Python dependencies
       run: |
@@ -44,6 +41,9 @@ jobs:
 
     - name: Load Sandbox Sudoers Settings
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
+
+    - name: Load AppArmor Profile
+      run: sudo mv apparmor-profiles/home.runner.work.codejail.codejail.codejailvenv.bin.python /etc/apparmor.d/
 
     - name: Enforce apparmor profile
       run: sudo aa-enforce /etc/apparmor.d/home.runner.work.codejail.codejail.codejailvenv.bin.python
