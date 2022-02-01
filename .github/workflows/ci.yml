@@ -31,10 +31,10 @@ jobs:
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
     - name: Create Virtualenv
-      run: virtualenv -p python3.8 codejail
+      run: virtualenv -p python3.8 codejailvenv
 
     - name: Activate Virtualenv
-      run: source codejail/bin/activate
+      run: source codejailvenv/bin/activate
 
     - name: Check generated Files
       run: ls
@@ -57,5 +57,5 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
         CODEJAIL_TEST_USER: 'sandbox'
-        CODEJAIL_TEST_VENV: 'codejail'
+        CODEJAIL_TEST_VENV: 'codejailvenv'
       run: tox
