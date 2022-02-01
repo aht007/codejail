@@ -4,7 +4,7 @@ codejail_sandbox/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
-    codejail_sandbox/** mr,
+    /codejail_sandbox/** mr,
     /codejail-*/ rix,
     /codejail-*/** wrix,
 
