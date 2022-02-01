@@ -51,16 +51,17 @@ jobs:
     - name: Check apparmor profiles status
       run: sudo aa-status
 
-    - name: Activate Virtual Environment
+    - name: Run Quality Tests
       run: |
         source codejailvenv/bin/activate
         pip install -r requirements/testing.txt
-
-    - name: Run Quality Tests
-      run: make quality
+        make quality
 
     - name: Run Tests
       env:
         CODEJAIL_TEST_USER: 'sandbox'
         CODEJAIL_TEST_VENV: 'codejailvenv'
-      run: make test
+      run: |
+        source codejailvenv/bin/activate
+        pip install -r requirements/testing.txt
+        make test
