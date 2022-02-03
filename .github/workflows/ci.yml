@@ -47,7 +47,7 @@ jobs:
       run: sudo aa-status
 
     - name: Switch to Sandbox User
-      run: su - sandbox
+      run: sudo su - sandbox
 
     - name: Install Requirements in Virtualenv
       run: |
