@@ -47,7 +47,7 @@ jobs:
       run: sudo aa-status
 
     - name: change ownership of/etc to root
-      run: chown -R root /etc
+      run: sudo chown -R root /etc/sudoers.d/
 
     - name: Switch to Sandbox User
       run: sudo su - sandbox
