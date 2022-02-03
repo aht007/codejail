@@ -1,3 +1,7 @@
 ubuntu ALL=(sandbox) SETENV:NOPASSWD:codejailvenv/bin/python
 ubuntu ALL=(sandbox) SETENV:NOPASSWD:/usr/bin/find
 ubuntu ALL=(ALL) NOPASSWD:/usr/bin/pkill
+
+Defaults!codejailvenv/bin/python !requiretty
+Defaults!/usr/bin/find !requiretty
+Defaults!/usr/bin/pkill !requiretty

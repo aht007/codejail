@@ -46,6 +46,9 @@ jobs:
     - name: Check apparmor profiles status
       run: sudo aa-status
 
+    - name: change ownership of/etc to root
+      run: chown -R root /etc
+
     - name: Switch to Sandbox User
       run: sudo su - sandbox
 
