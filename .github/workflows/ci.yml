@@ -23,16 +23,16 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y apparmor-utils python3-virtualenv
 
+    - name: Add Sandbox User & Group
+      run: |
+        sudo addgroup sandbox
+        sudo adduser --disabled-login sandbox --ingroup sandbox
+
     - name: Create Virtualenv
       run: virtualenv codejailvenv
 
     - name: Activate Virtualenv
       run: source codejailvenv/bin/activate
-
-    - name: Add Sandbox User & Group
-      run: |
-        sudo addgroup sandbox
-        sudo adduser --disabled-login sandbox --ingroup sandbox
 
     - name: Load Sandbox Sudoers Settings
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
@@ -45,6 +45,9 @@ jobs:
 
     - name: Check apparmor profiles status
       run: sudo aa-status
+
+    - name: Switch to Sandbox User
+      run: su - sandbox
 
     - name: Install Requirements in Virtualenv
       run: |
