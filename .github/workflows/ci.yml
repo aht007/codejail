@@ -38,7 +38,7 @@ jobs:
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
 
     - name: Check users
-      run: id && whoami && id -u -n
+      run: id && id -u -n
 
     - name: Change owner of sudoers.d
       run: sudo pkexec chown root:root /etc/sudoers.d -R
