@@ -37,6 +37,9 @@ jobs:
     - name: Load Sandbox Sudoers Settings
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
 
+    - name: Enforce sandbox user permissions
+      run: sudo visudo -f /etc/sudoers.d/01-sandbox
+
     - name: Load AppArmor Profile
       run: sudo mv apparmor-profiles/home.runner.work.codejail.codejail.codejailvenv.bin.python /etc/apparmor.d/
 
@@ -45,12 +48,6 @@ jobs:
 
     - name: Check apparmor profiles status
       run: sudo aa-status
-
-    - name: change ownership of/etc to root
-      run: sudo chown -R runner /etc/sudoers.d/
-
-    - name: Switch to Sandbox User
-      run: sudo su - sandbox
 
     - name: Install Requirements in Virtualenv
       run: |
