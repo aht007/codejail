@@ -29,7 +29,9 @@ jobs:
         sudo adduser --disabled-login --disabled-password sandbox --ingroup sandbox
 
     - name: Check users
-      run: id && id -u -n
+      run: |
+        id && id -u -n
+        cat /etc/passwd
 
     - name: Create Virtualenv
       run: virtualenv codejailvenv
