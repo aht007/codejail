@@ -26,7 +26,10 @@ jobs:
     - name: Add Sandbox User & Group
       run: |
         sudo addgroup sandbox
-        sudo adduser --disabled-login -y sandbox --ingroup sandbox
+        sudo adduser --disabled-login --disabled-password sandbox --ingroup sandbox
+
+    - name: Check users
+      run: id && id -u -n
 
     - name: Create Virtualenv
       run: virtualenv codejailvenv
@@ -36,9 +39,6 @@ jobs:
 
     - name: Load Sandbox Sudoers Settings
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
-
-    - name: Check users
-      run: id && id -u -n
 
     - name: Change owner of sudoers.d
       run: sudo pkexec chown root:root /etc/sudoers.d -R
