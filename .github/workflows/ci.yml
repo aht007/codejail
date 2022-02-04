@@ -26,7 +26,7 @@ jobs:
     - name: Add Sandbox User & Group
       run: |
         sudo addgroup sandbox
-        sudo adduser --disabled-login sandbox --ingroup -y sandbox
+        sudo adduser --disabled-login -y sandbox --ingroup sandbox
 
     - name: Create Virtualenv
       run: virtualenv codejailvenv
