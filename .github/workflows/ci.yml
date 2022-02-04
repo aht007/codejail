@@ -38,7 +38,7 @@ jobs:
       run: sudo mv apparmor-profiles/01-sandbox /etc/sudoers.d/
 
     - name: Change owner of sudoers.d
-      run: pkexec chown root:root /etc/sudoers.d -R
+      run: sudo pkexec chown root:root /etc/sudoers.d -R
 
     - name: Enforce sandbox user permissions
       run: sudo visudo -f /etc/sudoers.d/01-sandbox
