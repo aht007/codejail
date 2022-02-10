@@ -1,0 +1,40 @@
+name: Apparmor CI
+
+on:
+  pull_request:
+
+jobs:
+  run_apparmor:
+    name: AppArmor GitHub Selfhosted CI
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04 ]
+        python-version: [ 3.8 ]
+        toxenv: [py38]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Requirements
+      run: pip install -r requirements/tox.txt
+
+    - name: build Image from Dockerfile
+      run: docker build --tag codejail_apparmor .
+
+    - name: Parse custom apparmor profile
+      run: apparmor_parser -r -W apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python
+
+    - name: Check apparmor profiles
+      run: aa-status
+
+    - name: Run container with custom apparmor profile
+      run: |
+        docker run --name=codejail -d --security-opt apparmor=home.sandbox.codejail_sandbox-python3.8.bin.python codejail_apparmor tail -f /dev/null
+
+    - name: Run Tests
+      run: docker exec -t codejail bash -c "tox -e py38"
