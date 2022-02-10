@@ -37,4 +37,4 @@ jobs:
         docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
 
     - name: Run Tests
-      run: docker exec -t codejail bash -c "tox -e py38"
+      run: docker exec -t codejail bash -c "pip install tox && tox -e py38"
