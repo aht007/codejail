@@ -26,7 +26,7 @@ ADD . .
 
 # Install codejail_sandbox sandbox dependencies
 RUN source $VIRTUALENV_DIR/bin/activate
-RUN pip install -r requirement/tox.txt
+RUN pip install -r requirements/tox.txt
 RUN pip install -r requirements/sandbox.txt
 
 # Setup sudoers file
