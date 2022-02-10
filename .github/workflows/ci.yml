@@ -37,6 +37,5 @@ jobs:
         docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
 
     - name: Run Tests
-      env:
-        CODEJAIL_VENV: '/home/sandbox/codejail_sandbox-python3.8'
-      run: docker exec -t codejail bash -c "source ${{CODEJAIL_VENV}}/bin/activate && pip install tox && tox -e py38"
+      run: |
+        docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate && pip install tox && tox -e py38"
