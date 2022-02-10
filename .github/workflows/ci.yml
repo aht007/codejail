@@ -34,7 +34,7 @@ jobs:
 
     - name: Run container with custom apparmor profile
       run: |
-        docker run --name=codejail -d --security-opt apparmor=home.sandbox.codejail_sandbox-python3.8.bin.python codejail_apparmor tail -f /dev/null
+        docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
 
     - name: Run Tests
       run: docker exec -t codejail bash -c "tox -e py38"
