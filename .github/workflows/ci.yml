@@ -38,4 +38,4 @@ jobs:
 
     - name: Run Tests
       run: |
-        docker exec -t codejail bash -c "tox -e py38"
+        sudo docker exec -t codejail bash -c "tox -e py38"
