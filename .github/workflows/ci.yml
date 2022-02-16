@@ -34,8 +34,8 @@ jobs:
 
     - name: Run container with custom apparmor profile
       run: |
-        docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
+        docker run --name=codejail -d tail -f /dev/null
 
     - name: Run Tests
       run: |
-        sudo docker exec -t codejail bash -c "sudo make test"
+        sudo docker exec -t codejail bash -c "make test"
