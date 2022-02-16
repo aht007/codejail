@@ -7,7 +7,7 @@ profile apparmor_profile /home/sandbox/codejail_sandbox-python3.8/bin/python {
     /home/sandbox/codejail_sandbox-python3.8/** mr,
     /tmp/codejail-*/ rix,
     /tmp/codejail-*/** wrix,
-
+    /usr/bin/make mr,
     # Whitelist particular shared objects from the system python installation
     #
     /usr/lib/python3.8/lib-dynload/_json.so mr,
