@@ -38,4 +38,4 @@ jobs:
 
     - name: Run Tests
       run: |
-        sudo docker exec -t codejail bash -c "make test"
+        sudo docker exec -t codejail bash -c "sudo make test"
