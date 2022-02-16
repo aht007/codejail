@@ -25,9 +25,7 @@ RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
 ADD . .
 
 # Install codejail_sandbox sandbox dependencies
-RUN source $VIRTUALENV_DIR/bin/activate
-RUN pip install -r requirements/tox.txt
-RUN pip install -r requirements/sandbox.txt
+RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
