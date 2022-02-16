@@ -4,7 +4,7 @@ profile apparmor_profile /home/sandbox/codejail_sandbox-python3.8/bin/python {
     #include <abstractions/base>
     #include <abstractions/python>
 
-    /home/sandbox/codejail_sandbox-python3.8/* wrix,
+    /home/sandbox/codejail_sandbox-python3.8/** wrix,
     /codejail/* mr,
     # Whitelist particular shared objects from the system python installation
     #
