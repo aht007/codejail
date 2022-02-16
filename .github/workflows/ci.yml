@@ -38,4 +38,5 @@ jobs:
 
     - name: Run Tests
       run: |
-        sudo docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate && make test"
+        sudo docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate &&
+        CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG codejail"

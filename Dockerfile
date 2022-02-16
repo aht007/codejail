@@ -30,6 +30,7 @@ RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.t
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
 
+RUN source $VIRTUALENV_DIR/bin/activate && CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG codejail
 # Setup Apparmor profile
 #ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
 #RUN apparmor_parser -r -W /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
