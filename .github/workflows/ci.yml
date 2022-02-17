@@ -39,6 +39,9 @@ jobs:
     - name: Add current directory to python apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python
       run: PYTHONPATH=.
       
+    - name: Add current directory to python apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python
+      run: PYTHONPATH=./codejail
+
     - name: Run Tests
       run: |
         sudo docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate &&
