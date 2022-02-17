@@ -27,18 +27,15 @@ ADD . .
 # Install codejail_sandbox sandbox dependencies
 RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt
 
-
-
-
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
 
 # Setup Apparmor profile
-ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
-RUN apparmor_parser -r -W /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
-RUN aa-enforce /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
-RUN aa-status
+#ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
+#RUN apparmor_parser -r -W /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
+#RUN aa-enforce /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
+#RUN aa-status
 
-ADD apparmor-profiles/$APPARMOR_PROFILE /etc/apparmor.d/
-RUN sudo apparmor_parser /etc/apparmor.d/$APPARMOR_PROFILE
-RUN sudo aa-enforce /etc/apparmor.d/$APPARMOR_PROFILE
+#ADD apparmor-profiles/$APPARMOR_PROFILE /etc/apparmor.d/
+#RUN sudo apparmor_parser /etc/apparmor.d/$APPARMOR_PROFILE
+#RUN sudo aa-enforce /etc/apparmor.d/$APPARMOR_PROFILE
