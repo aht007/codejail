@@ -5,10 +5,9 @@ profile apparmor_profile /home/sandbox/codejail_sandbox-python3.8/bin/python {
     #include <abstractions/python>
 
     /home/sandbox/codejail_sandbox-python3.8/** wrix,
-    /** mr,
+    /** wrix,
     /tmp/* wr,
-    /reports/* wrix,
-    /usr/bin/mkdir wrix,
+
     # Whitelist particular shared objects from the system python installation
     #
     /usr/lib/python3.8/lib-dynload/_json.so mr,
