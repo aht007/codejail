@@ -27,13 +27,7 @@ ADD . .
 # Install codejail_sandbox sandbox dependencies
 RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt
 
-RUN lsm=landlock,lockdown,yama,apparmor,bpf
-RUN CONFIG_LSM="landlock,lockdown,yama,apparmor,bpf"
-RUN apt-get update
 
-RUN apt-get install apparmor-utils
-
-RUN aa-enabled
 
 
 # Setup sudoers file
