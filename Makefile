@@ -8,7 +8,9 @@ clean:
 	find codejail -name '__pycache__' -exec rm -rf {} +
 
 
-test: test_no_proxy test_proxy
+test: 
+	PYTHONPATH=.
+	test_no_proxy test_proxy
 
 test_no_proxy:
 	@echo "Running all tests with no proxy process"
