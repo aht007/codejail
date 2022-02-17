@@ -21,9 +21,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install Requirements
-      run: |
-        pip install -r requirements/tox.txt
-        pip install -e .
+      run: pip install -r requirements/tox.txt
 
     - name: build Image from Dockerfile
       run: docker build --tag codejail_apparmor .
