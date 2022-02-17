@@ -36,13 +36,7 @@ jobs:
       run: |
         docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
 
-    - name: Add current directory to python apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python
-      run: PYTHONPATH=.
-      
-    - name: Add current directory to python apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python
-      run: PYTHONPATH=./codejail
-
     - name: Run Tests
       run: |
         sudo docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate &&
-        mkdir -p reports &&  CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG ./codejail"
+        mkdir -p reports &&  CODEJAIL_PROXY=0 python -m pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG ./codejail"
