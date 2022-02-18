@@ -23,5 +23,5 @@ profile apparmor_profile /home/sandbox/codejail_sandbox-python3.8/bin/python {
     # Allow access to selections from /proc
     #
     /proc/*/mounts r,
-    ./
+    /
 }
