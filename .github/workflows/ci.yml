@@ -39,4 +39,4 @@ jobs:
           CODEJAIL_TEST_USER: "sandbox"
           CODEJAIL_TEST_VENV: "/home/sandbox/codejail_sandbox-python3.8"
         run: |
-          sudo docker exec -t codejail bash -c "tox"
+          sudo docker exec -t codejail bash -c "mkdir -p reports && tox"
