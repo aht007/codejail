@@ -25,6 +25,8 @@ RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
 ADD . .
 
 RUN pip install -r requirements/tox.txt
+RUN pip install -r requirements/testing.txt
+RUN pip install -r requirements/sandbox.txt
 
 # Install codejail_sandbox sandbox dependencies
 RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt 

@@ -38,4 +38,4 @@ jobs:
           CODEJAIL_TEST_USER: "sandbox"
           CODEJAIL_TEST_VENV: "/home/sandbox/codejail_sandbox-python3.8"
         run: |
-          sudo docker exec -t codejail bash -c "mkdir -p reports && CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG && CODEJAIL_PROXY=1 pytest --junitxml=reports/pytest-proxy.xml --log-level=DEBUG"
+          sudo docker exec -t codejail bash -c "mkdir -p reports && CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG codejail && CODEJAIL_PROXY=1 pytest --junitxml=reports/pytest-proxy.xml --log-level=DEBUG codejail"
