@@ -27,9 +27,10 @@ ADD . .
 RUN pip install -r requirements/tox.txt
 RUN pip install -r requirements/testing.txt
 RUN pip install -r requirements/sandbox.txt
+RUN pip install -e .
 
 # Install codejail_sandbox sandbox dependencies
-RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt 
+RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt  && pip install -e .
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
