@@ -29,6 +29,12 @@ jobs:
       - name: Check apparmor profiles
         run: sudo aa-status
 
+      - name: Check Kernal Params
+        run: sudo sysctl -a
+        
+      - name: New Kernal Params
+        run: sysctl -w lsm=landlock,lockdown,yama,apparmor,bpf
+
       - name: Run container with custom apparmor profile
         run: |
           docker run --name=codejail -d --security-opt apparmor=home.sandbox.codejail_sandbox-python3.8.bin.python codejail_apparmor tail -f /dev/null
