@@ -31,7 +31,10 @@ jobs:
 
       - name: Run container with custom apparmor profile
         run: |
-          docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
+          docker run --name=codejail -d --security-opt apparmor=home.sandbox.codejail_sandbox-python3.8.bin.python codejail_apparmor tail -f /dev/null
+
+      - name: Check AA status in docker container
+        run: sudo docker exec -t codejail bash -c "aa-status"
 
       - name: Run Tests
         env:

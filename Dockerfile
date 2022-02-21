@@ -1,6 +1,7 @@
 FROM ubuntu:focal
 SHELL ["/bin/bash", "-c"]
 
+#RUN sysctl -w security=apparmor
 # Install Codejail Packages
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y vim python3-virtualenv python3-pip
@@ -14,12 +15,15 @@ ENV CODEJAIL_USER=sandbox
 ENV CODEJAIL_SANDBOX_CALLER=ubuntu
 ENV APPARMOR_PROFILE=home.sandbox.codejail_sandbox-python3.8.bin.python
 
+# Create Virtualenv for sandbox user
+RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
+
 # Create Sandbox user & group
 RUN addgroup $CODEJAIL_GROUP
 RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
 
-# Create Virtualenv for sandbox user
-RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
+# Give Ownership of sandbox env to sandbox group
+RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
 
 # Clone Codejail Repo
 ADD . ./codejail
@@ -29,7 +33,7 @@ WORKDIR /codejail
 RUN pip install -r requirements/tox.txt
 
 # Install codejail_sandbox sandbox dependencies
-RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt 
+RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && deactivate
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
@@ -39,9 +43,9 @@ RUN /etc/init.d/apparmor restart
 
 # Setup Apparmor profile
 #ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
-#RUN apparmor_parser -r -W /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
-#RUN aa-enforce /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
-#RUN aa-status
+# RUN apparmor_parser -r -W /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
+# RUN aa-enforce /etc/apparmor.d/home.sandbox.codejail_sandbox-python3.8.bin.python
+# RUN aa-status
 
 #ADD apparmor-profiles/$APPARMOR_PROFILE /etc/apparmor.d/
 #RUN sudo apparmor_parser /etc/apparmor.d/$APPARMOR_PROFILE
