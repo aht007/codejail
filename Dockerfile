@@ -22,18 +22,20 @@ RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJ
 RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
 
 # Clone Codejail Repo
-ADD . .
+ADD . ./codejail
+
+WORKDIR /codejail
 
 RUN pip install -r requirements/tox.txt
-RUN pip install -r requirements/testing.txt
-RUN pip install -r requirements/sandbox.txt
-RUN pip install -e .
 
 # Install codejail_sandbox sandbox dependencies
-RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt  && pip install -e .
+RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt 
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
+ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
+
+RUN sudo /etc/init.d/apparmor restart
 
 # Setup Apparmor profile
 #ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
