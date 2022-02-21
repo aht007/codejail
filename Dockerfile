@@ -39,7 +39,6 @@ RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.t
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
 ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
 
-RUN /etc/init.d/apparmor restart
 
 # Setup Apparmor profile
 #ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
