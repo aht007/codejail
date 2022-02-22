@@ -21,7 +21,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install Requirements
-      run: pip install -r requirements/tox.txt
+      run: |
+          pip install -r requirements/tox.txt
+          pip install -r requirements/testing.txt
+          pip install -r requirements/sandbox.txt
 
     - name: build Image from Dockerfile
       run: docker build --tag codejail_apparmor .
@@ -41,4 +44,4 @@ jobs:
 #        mkdir -p reports &&  CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG ./codejail"
 
     - name: Run Tests
-      run: sudo docker exec -t codejail bash -c "source /home/sandbox/codejail_sandbox-python3.8/bin/activate && pytest codejail/tests"
+      run: sudo docker exec -t codejail bash -c "CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG"
