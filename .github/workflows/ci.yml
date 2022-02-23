@@ -1,0 +1,36 @@
+name: Apparmor CI
+
+on:
+  pull_request:
+
+jobs:
+  run_apparmor:
+    name: AppArmor GitHub Selfhosted CI
+    runs-on: [self-hosted]
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04 ]
+        python-version: [ 3.8 ]
+        toxenv: [py38, quality]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Check users
+      run: |
+        id && id -u -n
+        cat /etc/passwd
+
+    - name: Install Requirements
+      run: pip install -r requirements/tox.txt
+
+    - name: Run Tests
+      env:
+        CODEJAIL_TEST_USER: 'sandbox'
+        CODEJAIL_TEST_VENV: '/home/sandbox/codejail_sandbox-python3.8'
+        TOXENV: ${{ matrix.toxenv }}
+      run: tox
