@@ -42,7 +42,7 @@ RUN source /venv/bin/activate && pip install -r requirements/sandbox.txt && pip 
 
 
 # Setup sudoers file
-ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
+ADD apparmor-profiles/01-sandbox /etc/sudoers.d/01-sandbox
 ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
 
 # Setup Apparmor profile
