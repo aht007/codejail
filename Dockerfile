@@ -24,7 +24,7 @@ RUN virtualenv -p python3.8 venv
 
 # Create Sandbox user & group
 RUN addgroup $CODEJAIL_GROUP
-RUN adduser --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
+RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
 
 # Give Ownership of sandbox env to sandbox group
 RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
@@ -44,7 +44,6 @@ RUN source /venv/bin/activate && pip install -r requirements/sandbox.txt && pip 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
 ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
-
 
 # Setup Apparmor profile
 #ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
