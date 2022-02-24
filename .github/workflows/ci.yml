@@ -29,9 +29,6 @@ jobs:
       - name: Check apparmor profiles
         run: sudo aa-status
 
-      - name: Check Kernal Params
-        run: sudo sysctl -a
-
       - name: Run container with custom apparmor profile
         run: |
           docker run --name=codejail -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
@@ -41,4 +38,4 @@ jobs:
           CODEJAIL_TEST_USER: "sandbox"
           CODEJAIL_TEST_VENV: "/home/sandbox/codejail_sandbox-python3.8"
         run: |
-          sudo docker exec -t codejail bash -c "tox"
+          sudo docker exec -t codejail bash -c 'export CODEJAIL_SANDBOX_CALLER="ubuntu" && export CODEJAIL_TEST_USER="sandbox" && CODEJAIL_TEST_VENV="/home/sandbox/codejail_sandbox-python3.8" && source /venv/bin/activate && make clean && make test_no_proxy'

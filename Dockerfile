@@ -20,9 +20,11 @@ ENV CODEJAIL_TEST_VENV=/home/sandbox/codejail_sandbox-python3.8
 # Create Virtualenv for sandbox user
 RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
 
+RUN virtualenv -p python3.8 venv
+
 # Create Sandbox user & group
 RUN addgroup $CODEJAIL_GROUP
-RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
+RUN adduser --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
 
 # Give Ownership of sandbox env to sandbox group
 RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
@@ -32,10 +34,12 @@ ADD . ./codejail
 
 WORKDIR /codejail
 
-RUN pip install -r requirements/tox.txt
-
 # Install codejail_sandbox sandbox dependencies
 RUN source $VIRTUALENV_DIR/bin/activate && pip install -r requirements/sandbox.txt && deactivate
+
+# Install testing requirements
+RUN source /venv/bin/activate && pip install -r requirements/sandbox.txt && pip install -r requirements/testing.txt && deactivate
+
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/
