@@ -14,6 +14,8 @@ ENV VIRTUALENV_DIR=/home/sandbox/codejail_sandbox-python3.8
 ENV CODEJAIL_USER=sandbox
 ENV CODEJAIL_SANDBOX_CALLER=ubuntu
 ENV APPARMOR_PROFILE=home.sandbox.codejail_sandbox-python3.8.bin.python
+ENV CODEJAIL_TEST_USER=sandbox
+ENV CODEJAIL_TEST_VENV=/home/sandbox/codejail_sandbox-python3.8
 
 # Create Virtualenv for sandbox user
 RUN virtualenv -p python3.8 --always-copy $VIRTUALENV_DIR
