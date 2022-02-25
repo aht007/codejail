@@ -7,6 +7,13 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y vim python3-virtualenv python3-pip
 RUN apt-get install -y apparmor-utils sudo
 
+RUN echo "ubuntu ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu && \
+    chmod 0440 /etc/sudoers.d/ubuntu
+RUN echo "root ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/root && \
+    chmod 0440 /etc/sudoers.d/root
+RUN echo "sandbox ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/sandbox && \
+    chmod 0440 /etc/sudoers.d/sandbox
+
 # Define Environment Variables
 ENV CODEJAIL_USER=sandbox
 ENV CODEJAIL_GROUP=sandbox
@@ -43,6 +50,8 @@ RUN source /venv/bin/activate && pip install -r requirements/sandbox.txt && pip 
 
 # Setup sudoers file
 ADD apparmor-profiles/01-sandbox /etc/sudoers.d/01-sandbox
+RUN chmod 0440 /etc/sudoers.d/01-sandbox
+
 ADD apparmor-profiles/home.sandbox.codejail_sandbox-python3.8.bin.python /etc/apparmor.d/
 
 # Setup Apparmor profile
