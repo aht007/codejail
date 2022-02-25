@@ -33,9 +33,10 @@ jobs:
         run: |
           docker run --name=codejail --privileged -d --security-opt apparmor=apparmor_profile codejail_apparmor tail -f /dev/null
 
-      - name: Run Tests
-        env:
-          CODEJAIL_TEST_USER: "sandbox"
-          CODEJAIL_TEST_VENV: "/home/sandbox/codejail_sandbox-python3.8"
+      - name: Run Non Proxy Tests
         run: |
           sudo docker exec -t codejail bash -c 'export CODEJAIL_SANDBOX_CALLER="root" && export CODEJAIL_TEST_USER="sandbox" && CODEJAIL_TEST_VENV="/home/sandbox/codejail_sandbox-python3.8" && source /venv/bin/activate && make clean && make test_no_proxy'
+
+      - name: Run Proxy Tests
+        run: |
+          sudo docker exec -t codejail bash -c 'export CODEJAIL_SANDBOX_CALLER="root" && export CODEJAIL_TEST_USER="sandbox" && CODEJAIL_TEST_VENV="/home/sandbox/codejail_sandbox-python3.8" && source /venv/bin/activate && make clean && make test_proxy'
