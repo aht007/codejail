@@ -7,11 +7,6 @@ clean:
 	find codejail -name '*.pyo' -exec rm -f {} +
 	find codejail -name '__pycache__' -exec rm -rf {} +
 
-
-test: 
-	PYTHONPATH=.
-	test_no_proxy test_proxy
-
 test_no_proxy:
 	@echo "Running all tests with no proxy process"
 	CODEJAIL_PROXY=0 pytest --junitxml=reports/pytest-no-proxy.xml --log-level=DEBUG
