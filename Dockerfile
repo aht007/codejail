@@ -7,13 +7,6 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y vim python3-virtualenv python3-pip
 RUN apt-get install -y apparmor-utils sudo
 
-RUN echo "ubuntu ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu && \
-    chmod 0440 /etc/sudoers.d/ubuntu
-RUN echo "root ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/root && \
-    chmod 0440 /etc/sudoers.d/root
-RUN echo "sandbox ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/sandbox && \
-    chmod 0440 /etc/sudoers.d/sandbox
-
 # Define Environment Variables
 ENV CODEJAIL_USER=sandbox
 ENV CODEJAIL_GROUP=sandbox
@@ -35,7 +28,7 @@ RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJ
 
 
 # Give Ownership of sandbox env to sandbox group
-RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
+#RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
 
 # Clone Codejail Repo
 ADD . ./codejail
