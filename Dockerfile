@@ -33,7 +33,6 @@ RUN virtualenv -p python3.8 venv
 RUN addgroup $CODEJAIL_GROUP
 RUN adduser --disabled-login --disabled-password $CODEJAIL_USER --ingroup $CODEJAIL_GROUP
 
-USER ubuntu
 
 # Give Ownership of sandbox env to sandbox group
 RUN chgrp $CODEJAIL_GROUP $VIRTUALENV_DIR
