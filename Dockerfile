@@ -21,13 +21,16 @@ RUN virtualenv -p python3.8 venv
 RUN addgroup $CODEJAIL_GROUP
 RUN adduser --disabled-login --disabled-password $CODEJAIL_TEST_USER --ingroup $CODEJAIL_GROUP
 
+# Switch to non root user inside Docker container
+RUN addgroup ubuntu
+RUN adduser --disabled-login --disabled-password ubuntu --ingroup ubuntu
 
-# Give Ownership of sandbox env to sandbox group
-RUN chgrp $CODEJAIL_GROUP $CODEJAIL_TEST_VENV
+
+# Give Ownership of sandbox env to sandbox group and user
+RUN chown -R $CODEJAIL_TEST_USER:$CODEJAIL_GROUP $CODEJAIL_TEST_VENV
 
 # Clone Codejail Repo
 ADD . ./codejail
-
 WORKDIR /codejail
 
 # Install codejail_sandbox sandbox dependencies
@@ -42,3 +45,10 @@ ADD apparmor-profiles/01-sandbox /etc/sudoers.d/01-sandbox
 
 # Change Sudoers file permissions
 RUN chmod 0440 /etc/sudoers.d/01-sandbox
+
+# Change Repo ownership
+RUN chown ubuntu:ubuntu ../codejail
+
+# Switch to ubuntu user
+USER ubuntu
+
