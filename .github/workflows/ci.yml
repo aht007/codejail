@@ -37,3 +37,6 @@ jobs:
       - name: Run Proxy Tests
         run: |
           sudo docker exec -t codejail bash -c 'source /venv/bin/activate && make clean && make test_proxy'
+        
+      - name: Run Quality Tests
+        run: sudo docker exec -t codejail bash -c 'source /venv/bin/activate && make quality'
