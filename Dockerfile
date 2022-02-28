@@ -41,7 +41,7 @@ RUN source /venv/bin/activate && pip install -r requirements/sandbox.txt && pip 
 
 
 # Setup sudoers file
-ADD apparmor-profiles/01-sandbox /etc/sudoers.d/01-sandbox
+ADD sudoers-file/01-sandbox /etc/sudoers.d/01-sandbox
 
 # Change Sudoers file permissions
 RUN chmod 0440 /etc/sudoers.d/01-sandbox

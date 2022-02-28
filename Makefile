@@ -7,6 +7,7 @@ clean:
 	find codejail -name '*.pyo' -exec rm -f {} +
 	find codejail -name '__pycache__' -exec rm -rf {} +
 
+
 test: test_no_proxy test_proxy
 
 test_no_proxy:
