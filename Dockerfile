@@ -8,7 +8,7 @@ RUN apt-get install -y sudo
 
 # Define Environment Variables
 ENV CODEJAIL_GROUP=sandbox
-ENV CODEJAIL_SANDBOX_CALLER=root
+ENV CODEJAIL_SANDBOX_CALLER=ubuntu
 ENV CODEJAIL_TEST_USER=sandbox
 ENV CODEJAIL_TEST_VENV=/home/sandbox/codejail_sandbox-python3.8
 
@@ -24,7 +24,6 @@ RUN adduser --disabled-login --disabled-password $CODEJAIL_TEST_USER --ingroup $
 # Switch to non root user inside Docker container
 RUN addgroup ubuntu
 RUN adduser --disabled-login --disabled-password ubuntu --ingroup ubuntu
-
 
 # Give Ownership of sandbox env to sandbox group and user
 RUN chown -R $CODEJAIL_TEST_USER:$CODEJAIL_GROUP $CODEJAIL_TEST_VENV
@@ -47,7 +46,7 @@ ADD sudoers-file/01-sandbox /etc/sudoers.d/01-sandbox
 RUN chmod 0440 /etc/sudoers.d/01-sandbox
 
 # Change Repo ownership
-RUN chown ubuntu:ubuntu ../codejail
+RUN chown -R ubuntu:ubuntu ../codejail
 
 # Switch to ubuntu user
 USER ubuntu

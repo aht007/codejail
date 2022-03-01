@@ -38,6 +38,3 @@ jobs:
         
       - name: Run Quality Tests
         run: docker exec -t codejail bash -c 'source /venv/bin/activate && make quality'
-
-
-# 
